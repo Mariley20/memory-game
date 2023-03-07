@@ -28,6 +28,20 @@ export default {
   computed: {
     boardElementsValues () {
       return this.boardElements.map(item => item.value)
+    },
+
+    areThereHiddenBoardElements () {
+      return this.boardElements.some(item => item.show === false)
+    }
+  },
+  watch: {
+    numberBoardElements (newValue, oldValue) {
+      this.getBoardElements()
+    },
+    areThereHiddenBoardElements (newValue, oldValue) {
+      if (!newValue) {
+        this.$emit('game-over')
+      }
     }
   },
   created () {
@@ -50,11 +64,11 @@ export default {
       this.boardItemsSelected = []
 
       if (firstItem.value === secondItem.value) {
-        this.$emit('change:player', { isPoint: true })
-        this.disabledBoard = false
+        setTimeout(() => {
+          this.$emit('change:player', { isPoint: true })
+          this.disabledBoard = false
+        }, 1000)
       } else {
-        this.$emit('change:player', { isPoint: false })
-
         setTimeout(() => {
           this.boardElements.forEach((boardItem, index) => {
             if (boardItem.id === firstItem.id) {
@@ -65,16 +79,13 @@ export default {
             }
           })
           this.disabledBoard = false
+          this.$emit('change:player', { isPoint: false })
         }, 1000)
       }
-      // this.$emit('update:end-date')
-      // this.$emit('increase:player-movements')
-      // this.$emit('change:player')
-
-      //
     },
 
     getBoardElements () {
+      this.boardElements = []
       let counter = 0
       do {
         const numberValue = Math.floor(Math.random() * 100) + 1

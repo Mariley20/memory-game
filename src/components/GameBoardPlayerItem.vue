@@ -3,7 +3,7 @@
     class="player-item"
     :class="{'player-item--is-playing': isPlaying}"
   >
-    player {{ index }}
+    player {{ player.id }}
     <div>move: {{ moves }}</div>
     <div>points: {{ points }}</div>
   </div>

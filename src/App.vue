@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <div class="settings-card">
+    <div
+      v-if="screenCurrent === SCREEN_START"
+      class="settings-card"
+    >
       <div>Select Theme</div>
       <div class="settings-card__themes">
         <button
@@ -37,6 +40,7 @@
       </button>
     </div>
     <GameBoardCard
+      v-if="screenCurrent === SCREEN_BOARD"
       :game-settings="gameSettings"
       :players="players"
     />
@@ -49,7 +53,7 @@ import { BOARD_SIZES, BOARD_SIZE_FOUR_ID } from './constants/boardSizes'
 import GameBoardCard from './components/GameBoardCard.vue'
 
 const SCREEN_START = 'SCREEN_START'
-// const SCREEN_BOARD = 'SCREEN_BOARD'
+const SCREEN_BOARD = 'SCREEN_BOARD'
 // const SCREEN_GAME_OVER = 'SCREEN_GAME_OVER'
 
 export default {
@@ -69,6 +73,8 @@ export default {
         endTime: '',
         finished: false
       },
+      SCREEN_BOARD,
+      SCREEN_START,
       screenCurrent: SCREEN_START
     }
   },
@@ -90,6 +96,7 @@ export default {
       this.gameSettings.boarSizeId = boarSize.id
     },
     startGame () {
+      this.screenCurrent = SCREEN_BOARD
       this.gameSettings.startTime = new Date()
     }
   }
