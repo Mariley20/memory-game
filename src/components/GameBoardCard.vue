@@ -5,20 +5,29 @@
       <button>Restart</button>
       <button>New Game</button>
     </div>
-    <GameBoardNumbers
-      :style="boardSizeVarCss"
-      :number-board-elements="numberBoardElements"
-      @change:player="handleChangePlayer"
-    />
-
-    <div class="game-board__players">
-      <GameBoardPlayerItem
-        v-for="(playerItem, index) in players"
-        :key="index"
-        :index="index + 1"
-        :player="playerItem"
+    <template v-if="!showScreenGameOver">
+      <GameBoardNumbers
+        :style="boardSizeVarCss"
+        :number-board-elements="numberBoardElements"
+        @change:player="handleChangePlayer"
+        @game-over="handleGameOver"
       />
-    </div>
+
+      <div class="game-board__players">
+        <GameBoardPlayerItem
+          v-for="(playerItem, index) in players"
+          :key="index"
+          :index="index + 1"
+          :player="playerItem"
+        />
+      </div>
+    </template>
+
+    <GameOverCard
+      v-else
+      :players="players"
+      :game-settings="gameSettings"
+    />
   </div>
 </template>
 
@@ -26,20 +35,23 @@
 import { BOARD_SIZES } from '../constants/boardSizes'
 import GameBoardNumbers from '../components/GameBoardNumbers.vue'
 import GameBoardPlayerItem from '../components/GameBoardPlayerItem.vue'
+import GameOverCard from '../components/GameOverCard.vue'
 
 export default {
   components: {
-    GameBoardNumbers, GameBoardPlayerItem
+    GameBoardNumbers,
+    GameBoardPlayerItem,
+    GameOverCard
   },
   props: {
     gameSettings: { type: Object, default: null }
   },
   data () {
     return {
-      // playerIdOnDuty: '',
       boardItemsSelected: [],
       boardElements: [],
-      players: []
+      players: [],
+      showScreenGameOver: false
     }
   },
   computed: {
@@ -79,15 +91,6 @@ export default {
     this.getPlayers()
   },
   methods: {
-    handleBoardItemClick (item) {
-      //
-    },
-    handleUpdateEndDate (item) {
-      //
-    },
-    handleIncreasePlayerMovements (item) {
-      //
-    },
     handleChangePlayer ({ isPoint }) {
       const playerIndex = this.players.findIndex(item => item.isPlaying)
       const nextPlayerIndex = (playerIndex + 1) < this.players.length ? playerIndex + 1 : 0
@@ -117,6 +120,9 @@ export default {
         this.players[0].isPlaying = true
       }
       // this.playerIdOnDuty = this.players.length ? this.players[0].id : ''
+    },
+    handleGameOver () {
+      this.showScreenGameOver = true
     }
 
   }
