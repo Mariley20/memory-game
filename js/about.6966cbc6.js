@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkmemory_game"]=self["webpackChunkmemory_game"]||[]).push([[443],{135:function(e,n,t){t.r(n),t.d(n,{default:function(){return i}});var u=function(){var e=this;e._self._c;return e._m(0)},s=[function(){var e=this,n=e._self._c;return n("div",{staticClass:"about"},[n("h1",[e._v("This is an about page")])])}],a=t(3736),r={},l=(0,a.Z)(r,u,s,!1,null,null,null),i=l.exports}}]);
+//# sourceMappingURL=about.6966cbc6.js.map
