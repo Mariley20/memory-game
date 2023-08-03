@@ -1,24 +1,12 @@
-/*
-COLORS:
+// @import './abstracts/variables'; No es necesario porque se mapeo globalmente en vue.cli
+@import './abstracts/mixins';
+@import './abstracts/functions';
 
-Light green: #7ed56f
-Medium green: #55c57a
-Dark green: #28b485
 
-*/
+@import './base/base';
+@import './base/animations';
+@import './base/typography';
+@import './base/utilities';
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-body {
-  font-family: "Lato", sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.7;
-  color: #777;
-  padding: 30px;
-}
 
